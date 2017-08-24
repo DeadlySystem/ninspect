@@ -11,7 +11,7 @@ Debian container and gives you a shell to inspect it. It runs on all systems tha
 - Place kernel.img and nand.bin inside the nand folder of ninspect
 - Install docker on your computer
 - From the docker prompt, cd to the ninspect folder
-- Run docker-compose run ninspect
+- Run `docker-compose run ninspect`
 
 ## Available special commands
 
