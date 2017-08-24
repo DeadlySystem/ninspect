@@ -19,20 +19,47 @@ Debian container and gives you a shell to inspect it. It runs on all systems tha
 
 After mounting the NAND using _mountnand_, use this command to copy all the games to the nand folder of ninspect.
 
+### copydata
+
+After mounting the NAND using _mountnand_, use this command to copy all the files from the data partition to the nand
+folder of ninspect.
+
 ### mountnand
 
-Mounts a decrypted NAND at /mnt/nand. This is done by the default CMD of the container.
+Extracts the rootfs and data partitions from the raw NAND dump, decrypts the rootfs partition and mounts these
+partitions at /mnt/rootfs and /mnt/data, respectively. This is done by the default CMD of the container.
 
 ## FAQ
 
-##### After running mountnand, there is a file called nand.hsqs in the nand directory that stays there. What is it?
+##### What are all the files in the nand folder?
 
-This is an image of your decrypted NAND. It's the file that gets mounted to /mnt/nand when you run the mountnand
-command. You can delete it if you want to.
+- nand.bin: The raw NAND image. To be provided by you.
+- logical.bin: The logical volume extracted from nand.bin.
+- kernel.img: The raw kernel image. To be provided by you, or alternatively provide the key-file found within it.
+- key-file: The decryption key for the rootfs partition.
+- boot.bin: The boot partition extracted from logical.bin.
+- data.bin: The data partition extracted from logical.bin.
+- private.bin: The private partition extracted from logical.bin. Usually all 0xFF.
+- rootfs.bin: The encrypted rootfs partition extracted from logical.bin.
+- UDISK.bin: The UDISK partition extracted from logical.bin. Usually zero-size.
+- rootfs.hsqs: The decrypted rootfs partition.
 
-#### Why does the container run in privileged mode?
+##### Why does the container run in privileged mode?
 
 Because the decryption relies on loopback device functionality provided by the docker host.
+
+##### What else is in the NAND?
+
+- 0x100000 through 0x18BFFF: uboot
+- 0x600000 through 0x8B2000: kernel
+
+## Test setup
+
+Tested on Windows 7 Professional x64 with Docker Toolbox, using Docker version 17.04.0-ce, build 4845c56
+
+## Troubleshooting
+
+When running on Windows, make sure you clone ninspect somewhere inside your user folder in order to enable mounting. 
 
 ## Credits
 

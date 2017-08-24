@@ -18,4 +18,4 @@ COPY ["split_bootimg", "/root/split_bootimg/"]
 COPY ["scripts/*.sh", "/root/"]
 COPY ["scripts/.bashrc", "/root/"]
 WORKDIR /nand
-CMD ["/bin/bash", "-i", "-c", "mountnand && /bin/bash"]
+CMD ["/bin/bash", "-i", "-c", "mountnand; /bin/bash"]
