@@ -60,6 +60,6 @@ if [ -f $DATA_PARTITION ]
 then
     # Mount the data partition
     mkdir $DATA_MOUNTPOINT
-    mount -o loop,ro $DATA_PARTITION $DATA_MOUNTPOINT
+    mount $DATA_PARTITION $DATA_MOUNTPOINT
     echo "data mounted at $DATA_MOUNTPOINT!"
 fi
