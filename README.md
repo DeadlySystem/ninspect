@@ -15,19 +15,43 @@ Debian container and gives you a shell to inspect it. It runs on all systems tha
 
 ## Available commands
 
-### copygames
+### listpartitions
 
-After mounting the NAND using _mountnand_, use this command to copy all the games to the nand folder of ninspect.
+Lists the partitions in the given logical volume image.
 
-### copydata
+### extractpartitions
 
-After mounting the NAND using _mountnand_, use this command to copy all the files from the data partition to the nand
-folder of ninspect.
+Extracts all the partitions from the given logical volume image.
+
+### extractkeyfile
+
+Extracts the key-file from the given kernel image.
+
+### decryptrootfs
+
+Decrypts the given rootfs image using the given key-file.
+
+### mountpartition
+
+Mounts the given partition image at the given mount point. 
 
 ### mountnand
 
-Extracts the rootfs and data partitions from the raw NAND dump, decrypts the rootfs partition and mounts these
-partitions at /mnt/rootfs and /mnt/data, respectively. This is done by the default CMD of the container.
+This is done by the default CMD of the container. It does all of the above unless the resulting files already exist:
+
+- Extract the key-file from kernel.img
+- Extract a logical volume image from nand.bin
+- Extract the rootfs and data partitions from the logical volume image
+- Decrypt the rootfs partition
+- Mount these partitions at /mnt/rootfs and /mnt/data, respectively.
+
+### copygames
+
+After mounting the partitions using `mountnand`, use this command to copy all the games.
+
+### copydata
+
+After mounting the partitions using `mountnand`, use this command to copy all the files from the data partition.
 
 ## FAQ
 

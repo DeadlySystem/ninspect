@@ -3,6 +3,12 @@ set -e
 
 # This script lists the partition data from the given logical volume
 
+if [ "$#" -ne 1 ]
+then
+    echo "Usage: listpartitions <logical volume image>"
+    exit 0
+fi
+
 LOGICAL_VOLUME=$1
 
 # Run sunxi-nand-part -f a20 logical.bin in combination with grep to find the partitions within the NAND dump, then use

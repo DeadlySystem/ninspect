@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
 # This script decrypts the NES Classic Edition NAND image at /nand/nand.bin using the key file found in /nand/kernel.img
 # and mounts the decrypted NAND at /mnt/nand
@@ -40,25 +39,25 @@ then
             exit 1
         fi
 
-        $SCRIPT_DIR/extractkeyfile.sh $KERNEL_IMAGE
+        extractkeyfile $KERNEL_IMAGE
     fi
 
     # Extract partitions and decrypt rootfs
-    $SCRIPT_DIR/extractpartitions.sh $LOGICAL_VOLUME
-    $SCRIPT_DIR/decryptrootfs.sh $ROOTFS_ENCRYPTED $KEY_FILE $ROOTFS_DECRYPTED
+    extractpartitions $LOGICAL_VOLUME
+    decryptrootfs $ROOTFS_ENCRYPTED $KEY_FILE $ROOTFS_DECRYPTED
 fi
 
 
 if [ -f $ROOTFS_DECRYPTED ]
 then
     # Mount the decrypted rootfs partition
-    $SCRIPT_DIR/mountpartition.sh $ROOTFS_DECRYPTED $ROOTFS_MOUNTPOINT
+    mountpartition $ROOTFS_DECRYPTED $ROOTFS_MOUNTPOINT
     echo "rootfs mounted at $ROOTFS_MOUNTPOINT!"
 fi
 
 if [ -f $DATA_PARTITION ]
 then
     # Mount the data partition
-    $SCRIPT_DIR/mountpartition.sh $DATA_PARTITION $DATA_MOUNTPOINT
+    mountpartition $DATA_PARTITION $DATA_MOUNTPOINT
     echo "data mounted at $DATA_MOUNTPOINT!"
 fi

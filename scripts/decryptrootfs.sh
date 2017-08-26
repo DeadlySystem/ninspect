@@ -1,8 +1,13 @@
 #!/bin/bash
 set -e
-SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
 # This script extracts the rootfs partition from the given NAND image and decrypts it using the given key-file
+
+if [ "$#" -ne 3 ]
+then
+    echo "Usage: decryptrootfs <encrypted rootfs image> <key file> <decrypted rootfs image>"
+    exit 0
+fi
 
 ROOTFS_ENCRYPTED=$1
 KEY_FILE=$2
