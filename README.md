@@ -13,7 +13,7 @@ Debian container and gives you a shell to inspect it. It runs on all systems tha
 - From the docker prompt, cd to the ninspect folder
 - Run `docker-compose run ninspect`
 
-## Available special commands
+## Available commands
 
 ### copygames
 
@@ -38,17 +38,18 @@ partitions at /mnt/rootfs and /mnt/data, respectively. This is done by the defau
 - kernel.img: The raw kernel image. To be provided by you, or alternatively provide the key-file found within it.
 - key-file: The decryption key for the rootfs partition.
 - boot.bin: The boot partition extracted from logical.bin.
-- data.bin: The data partition extracted from logical.bin.
+- data.bin: The data partition extracted from logical.bin. It contains your savegames and the configuration.
 - private.bin: The private partition extracted from logical.bin. Usually all 0xFF.
 - rootfs.bin: The encrypted rootfs partition extracted from logical.bin.
 - UDISK.bin: The UDISK partition extracted from logical.bin. Usually zero-size.
-- rootfs.hsqs: The decrypted rootfs partition.
+- rootfs.hsqs: The decrypted rootfs partition. It contains the game ROMs, the emulator binary and more. This is a
+SquashFS image which can also be extracted with 7-Zip, for example.
 
 ##### Why does the container run in privileged mode?
 
 Because the decryption relies on loopback device functionality provided by the docker host.
 
-##### What else is in the NAND?
+##### What else is in the NAND dump?
 
 - 0x100000 through 0x18BFFF: uboot
 - 0x600000 through 0x8B2000: kernel

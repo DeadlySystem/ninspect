@@ -48,18 +48,17 @@ then
     $SCRIPT_DIR/decryptrootfs.sh $ROOTFS_ENCRYPTED $KEY_FILE $ROOTFS_DECRYPTED
 fi
 
+
 if [ -f $ROOTFS_DECRYPTED ]
 then
     # Mount the decrypted rootfs partition
-    mkdir $ROOTFS_MOUNTPOINT
-    mount -o loop,ro $ROOTFS_DECRYPTED $ROOTFS_MOUNTPOINT
+    $SCRIPT_DIR/mountpartition.sh $ROOTFS_DECRYPTED $ROOTFS_MOUNTPOINT
     echo "rootfs mounted at $ROOTFS_MOUNTPOINT!"
 fi
 
 if [ -f $DATA_PARTITION ]
 then
     # Mount the data partition
-    mkdir $DATA_MOUNTPOINT
-    mount $DATA_PARTITION $DATA_MOUNTPOINT
+    $SCRIPT_DIR/mountpartition.sh $DATA_PARTITION $DATA_MOUNTPOINT
     echo "data mounted at $DATA_MOUNTPOINT!"
 fi

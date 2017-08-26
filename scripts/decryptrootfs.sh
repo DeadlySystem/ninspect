@@ -9,13 +9,10 @@ KEY_FILE=$2
 ROOTFS_DECRYPTED=$3
 
 # Set up a loopback device with rootfs.bin as a back-file
-losetup -f $ROOTFS_ENCRYPTED
-
-# Find out which loopback device was used (e.g. /dev/loop0)
-ROOTFS_DEVICE=$(losetup -l -O NAME,BACK-FILE | grep $ROOTFS_ENCRYPTED | awk '{print $1}')
+ROOTFS_LOOP_DEVICE=$(losetup --find --read-only --show $ROOTFS_ENCRYPTED)
 
 # Open encrypted rootfs loopback device as a mapping
-cryptsetup open $ROOTFS_DEVICE rootfs --type plain --cipher aes-xts-plain --key-file $KEY_FILE
+cryptsetup open $ROOTFS_LOOP_DEVICE rootfs --type plain --cipher aes-xts-plain --key-file $KEY_FILE
 
 # Dump the decrypted rootfs to a file
 dd if=/dev/mapper/rootfs of=$ROOTFS_DECRYPTED
@@ -24,4 +21,4 @@ dd if=/dev/mapper/rootfs of=$ROOTFS_DECRYPTED
 cryptsetup close rootfs
 
 # Release the loopback device
-losetup -d $ROOTFS_DEVICE
+losetup -d $ROOTFS_LOOP_DEVICE
