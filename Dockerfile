@@ -24,5 +24,5 @@ ln /root/scripts/extractpartitions.sh /usr/bin/extractpartitions && \
 ln /root/scripts/listpartitions.sh /usr/bin/listpartitions && \
 ln /root/scripts/mountnand.sh /usr/bin/mountnand && \
 ln /root/scripts/mountpartition.sh /usr/bin/mountpartition
-WORKDIR /nand
+WORKDIR /dump
 CMD ["/bin/bash", "-i", "-c", "mountnand; /bin/bash"]

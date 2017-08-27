@@ -8,10 +8,12 @@ Debian container and gives you a shell to inspect it. It runs on all systems tha
 ## How to use
 
 - Use [hakchi](https://github.com/madmonkey1907/hakchi) to dump both your kernel and NAND
+    - [docker-hakchi](docker-hakchi/README.md) is a dockerized version of hakchi and integrated with ninspect to help
+       with this process
 - Place kernel.img and nand.bin inside the nand folder of ninspect
 - Install docker on your computer
 - From the docker prompt, cd to the ninspect folder
-- Run `docker-compose run ninspect`
+- Run `docker-compose run ninspect` or simply `./ninspect.sh`
 
 ## Available commands
 
